@@ -19,8 +19,31 @@ module Enumerable
         i = 0
         to_change = []
         while i < self.count
-            self[i]{|obj| to_change << obj if yield(obj)}
-            i++
-            to_change
+            to_change << self[i] if yield(self[i])
+            i = i + 1
         end
+        to_change
     end
+
+    def my_any?
+        i = 0
+        to_change = false
+        while i < self.count
+            to_change = true if yield(self[i])
+            i = i + 1
+        end
+        to_change
+    end
+end
+
+    def my_all?
+        i = 0
+        to_change = true
+        while i < self.count
+            to_change = false unless yield(self[i])
+            i = i + 1
+        end
+        to_change
+    end
+
+end

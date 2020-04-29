@@ -45,5 +45,15 @@ end
         end
         to_change
     end
+    
+    def my_none?
+        i = 0
+        to_change = true
+        while i < self.count
+            to_change = false if yield(self[i])
+            i = i + 1
+        end
+        to_change
+    end
 
 end

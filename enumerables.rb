@@ -71,22 +71,24 @@ module Enumerable
       else
         to_change << (the_proc.call arr[i])
       end
-      i += 1  
+      i += 1
     end
     to_change
   end
-  def my_inject fr_value
+
+  def my_inject (fr_value)
     i = 0
     arr = self
     while i < arr.count
-      fr_value = yield(fr_value,arr[i])  
+      fr_value = yield(fr_value, arr[i])
       i += 1
     end
     fr_value
   end
 
   def multiply_els
-    self.my_inject (1) { |result, obj| result * obj}
+    arr = self
+    arr.my_inject (1) { |result, obj| result * obj }
   end
-  [2,4,5].multiply_els
+  [2, 4, 5].multiply_els
 end

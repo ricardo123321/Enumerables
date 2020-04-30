@@ -2,18 +2,26 @@ module Enumerable
   def my_each
     i = 0
     arr = self
-    while i < arr.count
-      yield(arr[i])
-      i += 1
+    if block_given?
+      while i < arr.count
+        yield(arr[i])
+        i += 1
+      end
+    else
+      arr
     end
   end
 
   def my_each_with_index
     i = 0
     arr = self
-    while index < arr.count
-      yield(arr[i], i)
-      i += 1
+    if block_given?
+      while i < arr.count
+        yield(arr[i], i)
+        i += 1
+      end
+    else
+      arr
     end
   end
 
@@ -21,22 +29,29 @@ module Enumerable
     i = 0
     to_change = []
     arr = self
-    while i < arr.count
-      to_change << arr[i] if yield(arr[i])
-      i += 1
-    end
-    to_change
+    if block_given?
+      while i < arr.count
+        to_change << arr[i] if yield(arr[i])
+        i += 1
+      end
+      to_change
+    else
+      arr
   end
 
   def my_any?
     i = 0
     to_change = false
     arr = self
-    while i < arr.count
-      to_change = true if yield(arr[i])
-      i += 1
+    if block_given?
+      while i < arr.count
+        to_change = true if yield(arr[i])
+        i += 1
+      end
+      to_change
+    else
+      arr
     end
-    to_change
   end
 
   def my_all?

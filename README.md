@@ -9,7 +9,7 @@ This methods takes and input and returns the same result as the original methods
 
 # Intention of this code
 
-This diferent methods where created with the intend to have a better understanding of the diferent methods of Ruby. Yield and call command has been used inside the method definition to achieve this.
+This diferent methods where created with the intend to have a better understanding of the methods that are available on Ruby. Yield and call command has been used inside the method definition to achieve this.
 
 
 ## Built With

@@ -74,6 +74,12 @@ module Enumerable
     to_change
   end
 
+  def my_count
+    total = 0
+    self.my_each{total += 1}
+    total
+end
+
   def my_inject(fr_value)
     i = 0
     arr = self

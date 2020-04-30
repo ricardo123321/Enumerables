@@ -1,4 +1,5 @@
 module Enumerable
+# rubocop:disable Style/CaseEquality
     def my_each 
         i = 0
         while i < self.count
@@ -66,7 +67,7 @@ module Enumerable
         end
         to_change
     end
-  end
+
     def my_inject fr_value
         i = 0
         while i < self.count
@@ -80,4 +81,5 @@ module Enumerable
         self.my_inject (1) { |result, obj| result * obj}
     end
     [2,4,5].multiply_els
+    end
 end

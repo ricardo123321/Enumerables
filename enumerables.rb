@@ -1,7 +1,3 @@
-# rubocop:disable Metrics/CyclomaticComplexity
-# rubocop:disable Metrics/PerceivedComplexity
-# rubocop:disable Metrics/ModuleLength
-# rubocop:disable Metrics/MethodLength
 module Enumerable
   def my_each
     i = 0
@@ -70,7 +66,7 @@ module Enumerable
     to_change = []
     arr = self
     while i < arr.count
-      if the_proc == nil
+      if the_proc.nil? && true
         to_change << yield(arr[i])
       else
         to_change << (the_proc.call arr[i])
@@ -96,7 +92,4 @@ module Enumerable
   end
   [2, 4, 5].multiply_els
 end
-# rubocop:enable Metrics/CyclomaticComplexity
-# rubocop:enable Metrics/PerceivedComplexity
-# rubocop:enable Metrics/ModuleLength
-# rubocop:enable Metrics/MethodLength
+

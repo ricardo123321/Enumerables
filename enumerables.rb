@@ -66,12 +66,12 @@ module Enumerable
     to_change = []
     arr = self
     while i < arr.count
-      unless the_proc == nil
-        to_change << (the_proc.call arr[i])
-      else
+      if the_proc != nil
         to_change << yield(arr[i])
+      else
+        to_change << (the_proc.call arr[i])
       end
-    i += 1  
+      i += 1  
     end
     to_change
   end

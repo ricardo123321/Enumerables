@@ -1,5 +1,5 @@
 module Enumerable
-  def my_each 
+  def my_each
     i = 0
     arr = self
     while i < arr.count

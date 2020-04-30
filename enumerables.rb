@@ -92,4 +92,3 @@ module Enumerable
   end
   [2, 4, 5].multiply_els
 end
-d

@@ -1,3 +1,4 @@
+# rubocop:disable Style/CaseEquality
 module Enumerable
   def my_each
     i = 0
@@ -92,3 +93,4 @@ module Enumerable
   end
   [2, 4, 5].multiply_els
 end
+# rubocop:enable Style/CaseEquality

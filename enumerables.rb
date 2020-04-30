@@ -61,15 +61,15 @@ module Enumerable
     to_change
   end
 
-  def my_map(the_proc = nil)
+  def my_map(the_proc)
     i = 0
     to_change = []
     arr = self
     while i < arr.count
-      if the_proc.nil? && true
-        to_change << yield(arr[i])
-      else
+      if the_proc.nil? == false
         to_change << (the_proc.call arr[i])
+      else
+        to_change << yield(arr[i])
       end
       i += 1
     end

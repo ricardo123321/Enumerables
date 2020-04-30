@@ -67,11 +67,8 @@ module Enumerable
     arr = self
     arg = the_proc.nil?
     while i < arr.count
-      if arg == false
-        to_change << (the_proc.call arr[i])
-      else
-        to_change << yield(arr[i])
-      end
+      to_change << (the_proc.call arr[i]) unless arg == true
+      to_change << yield(arr[i]) if arg == true
       i += 1
     end
     to_change

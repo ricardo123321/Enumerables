@@ -4,7 +4,7 @@ module Enumerable
     arr = self
     while i < arr.count
       yield(arr[i])
-      i = i + 1
+      i += 1
     end
   end
 
@@ -13,7 +13,7 @@ module Enumerable
     arr = self
     while index < arr.count
     yield(arr[i], i)
-    i = i + 1
+    i += 1
       end
   end
 
@@ -23,7 +23,7 @@ module Enumerable
     arr = self
     while i < arr.count
       to_change << arr[i] if yield(arr[i])
-        i = i + 1
+      i += 1
     end
     to_change
   end
@@ -34,7 +34,7 @@ module Enumerable
     arr = self
     while i < arr.count
         to_change = true if yield(arr[i])
-        i = i + 1
+        i += 1
     end
     to_change
   end
@@ -45,7 +45,7 @@ module Enumerable
     arr = self
     while i < arr.count
       to_change = false unless yield(arr[i])
-      i = i + 1
+      i += 1
     end
     to_change
   end
@@ -56,7 +56,7 @@ module Enumerable
     arr = self
     while i < arr.count
     to_change = false if yield(arr[i])
-    i = i + 1
+    i += 1
     end
     to_change
   end
@@ -68,8 +68,10 @@ module Enumerable
     while i < arr.count
         unless the_proc == nil
         to_change << (the_proc.call arr[i])
+        i += 1
         else
         to_change << yield(arr[i])
+        i += 1
     end
     to_change
   end
@@ -79,7 +81,7 @@ module Enumerable
     arr = self
     while i < arr.count
       fr_value = yield(fr_value,arr[i])  
-      i = i + 1
+      i += 1
     end
     fr_value
   end

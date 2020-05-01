@@ -108,7 +108,7 @@ module Enumerable
     i = 0
     arr = self
     to_change = 0
-    to_change = 1 if operator == :* 
+    to_change = 1 if operator == :*
     to_change = 1 if operator == :/
     to_change = start_value if start_value != 0
     if operator.is_a? Symbol

@@ -1,3 +1,8 @@
+
+# rubocop:disable Metrics/CyclomaticComplexity
+# rubocop:disable Metrics/PerceivedComplexity
+# rubocop:disable Metrics/ModuleLength
+# rubocop:disable Metrics/MethodLength
 module Enumerable
   def my_each
     i = 0
@@ -51,12 +56,12 @@ module Enumerable
         elsif arg.respond_to?(:to_i)
           to_change = true if arr[i] == arg
         elsif arg.is_a?(Regexp)
-          to_change = true if arr[i].match(arg) 
+          to_change = true if arr[i].match(arg)
         elsif arg.respond_to?(:class)
           to_change = true if arr[i].instance_of?(arg) 
         end
       else
-        to_change = true if yield(arr[i])
+        to_change = true elsif yield(arr[i])
       end
       i += 1
     end
@@ -117,9 +122,9 @@ module Enumerable
         elsif operator == :-
           to_change -= arr[i]
         elsif operator == :*
-        to_change *= arr[i]
+          to_change *= arr[i]
         elsif operator == :/
-        to_change /= arr[i]        
+          to_change /= arr[i]   
         end
         i += 1
       end
@@ -133,3 +138,7 @@ def multiply_els(value = 1)
   arr.my_inject(value, :*)
 end
   [2, 4, 5].multiply_els
+# rubocop:enable Metrics/CyclomaticComplexity
+# rubocop:enable Metrics/PerceivedComplexity
+# rubocop:enable Metrics/ModuleLength
+# rubocop:enable Metrics/MethodLength

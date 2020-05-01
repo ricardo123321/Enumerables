@@ -57,7 +57,7 @@ module Enumerable
           to_change = true if arr[i].instance_of?(arg) 
         end
       else
-        to_change = true elsif yield(arr[i])
+        to_change = true if yield(arr[i])
       end
       i += 1
     end

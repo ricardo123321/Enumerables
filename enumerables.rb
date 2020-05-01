@@ -94,8 +94,13 @@ module Enumerable
   end
 
   def my_count
+    arr = self
+    i = 0
     total = 0
-    self.my_each { total += 1 }
+    while i < arr.count
+    arr.my_each { total += 1 }
+    i += 1
+    end
     total
   end
 

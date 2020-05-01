@@ -28,7 +28,7 @@ Metrics/PerceivedComplexity:
 Metrics/ModuleLength:
   Enabled: false
 Metrics/MethodLength:
-  Enabled: false
+  Max: 20
 Style/ClassAndModuleChildren:
   Enabled: false
 Style/EachForSimpleLoop:

@@ -47,17 +47,13 @@ module Enumerable
     to_change = false
     while i < arr.count
       if !block_given?
-        if arg.nil?
-          to_change = true if include?(true)
-        elsif arg.respond_to?(:to_i)
-          to_change = true if arr[i] == arg
-        elsif arg.is_a?(Regexp)
-          to_change = true if arr[i].match(arg)
-        elsif arg.respond_to?(:class)
-          to_change = true if arr[i].instance_of?(arg) 
+          to_change = true if include?(true) && arg.nil?
+          to_change = true if arr[i] == arg && arg.respond_to?(:to_i)
+          to_change = true if arr[i].match(arg) && arg.is_a?(Regexp)
+          to_change = true if arr[i].instance_of?(arg) && arg.respond_to?(:class)
         end
       else
-        to_change = true if yield(arr[i])
+        to_change = false unless yield(arr[i])
       end
       i += 1
     end

@@ -51,7 +51,6 @@ module Enumerable
           to_change = true if arr[i] == arg && arg.respond_to?(:to_i)
           to_change = true if arr[i].match(arg) && arg.is_a?(Regexp)
           to_change = true if arr[i].instance_of?(arg) && arg.respond_to?(:class)
-        end
       else
         to_change = false unless yield(arr[i])
       end

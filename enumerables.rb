@@ -1,4 +1,3 @@
-
 module Enumerable
   def my_each
     i = 0
@@ -47,10 +46,10 @@ module Enumerable
     to_change = false
     while i < arr.count
       if !block_given?
-          to_change = true if include?(true) && arg.nil?
-          to_change = true if arr[i] == arg && arg.respond_to?(:to_i)
-          to_change = true if arr[i].match(arg) && arg.is_a?(Regexp)
-          to_change = true if arr[i].instance_of?(arg) && arg.respond_to?(:class)
+        to_change = true if include?(true) && arg.nil?
+        to_change = true if arr[i] == arg && arg.respond_to?(:to_i)
+        to_change = true if arr[i].match(arg) && arg.is_a?(Regexp)
+        to_change = true if arr[i].instance_of?(arg) && arg.respond_to?(:class)
       else
         to_change = false unless yield(arr[i])
       end
@@ -96,11 +95,11 @@ module Enumerable
 
   def my_count
     total = 0
-    self.my_each{total += 1}
+    self.my_each { total += 1 }
     total
   end
 
-  def my_inject (start_value = 0, operator)
+  def my_inject(start_value = 0, operator)
     i = 0
     arr = self
     to_change = 0
@@ -108,14 +107,15 @@ module Enumerable
     to_change = start_value if start_value != 0
     if operator.is_a? (Symbol)
       while i < arr.count
-        if operator == :+
+        case operator
+        when :+
           to_change += arr[i]
-        elsif operator == :-
+        when :-
           to_change -= arr[i]
-        elsif operator == :*
+        when :*
           to_change *= arr[i]
-        elsif operator == :/
-          to_change /= arr[i]   
+        when :/
+          to_change /= arr[i]
         end
         i += 1
       end
@@ -128,5 +128,4 @@ def multiply_els(value = 1)
   arr = self
   arr.my_inject(value, :*)
 end
-  [2, 4, 5].multiply_els
-
+[2, 4, 5].multiply_els

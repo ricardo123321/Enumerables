@@ -98,19 +98,20 @@ module Enumerable
     i = 0
     total = 0
     while i < arr.count
-    arr.my_each { total += 1 }
-    i += 1
+      arr.my_each { total += 1 }
+      i += 1
     end
     total
   end
 
-  def my_inject(start_value = 0, operator)
+  def my_inject(start_value = 0, operator = nil)
     i = 0
     arr = self
     to_change = 0
-    to_change = 1 if operator == :* || operator == :/
+    to_change = 1 if operator == :* 
+    to_change = 1 if operator == :/
     to_change = start_value if start_value != 0
-    if operator.is_a? (Symbol)
+    if operator.is_a? Symbol
       while i < arr.count
         case operator
         when :+

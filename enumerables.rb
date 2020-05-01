@@ -37,21 +37,30 @@ module Enumerable
       to_change
     else
       arr
+    end
   end
 
-  def my_any?
+  def my_any?(arg = nil)
+    arr = self
     i = 0
     to_change = false
-    arr = self
-    if block_given?
-      while i < arr.count
+    while i < arr.count
+      if !block_given?
+        if arg.nil?
+          to_change = true if include?(true)
+        elsif arg.respond_to?(:to_i)
+          to_change = true if arr[i] == arg
+        elsif arg.is_a?(Regexp)
+          to_change = true if arr[i].match(arg) 
+        elsif arg.respond_to?(:class)
+          to_change = true if arr[i].instance_of?(arg) 
+        end
+      else
         to_change = true if yield(arr[i])
-        i += 1
       end
-      to_change
-    else
-      arr
+      i += 1
     end
+    to_change
   end
 
   def my_all?
@@ -93,21 +102,34 @@ module Enumerable
     total = 0
     self.my_each{total += 1}
     total
-end
+  end
 
-  def my_inject(fr_value)
+  def my_inject (start_value = 0, operator)
     i = 0
     arr = self
-    while i < arr.count
-      fr_value = yield(fr_value, arr[i])
-      i += 1
+    to_change = 0
+    to_change = 1 if operator == :* || operator == :/
+    to_change = start_value if start_value != 0
+    if operator.is_a? (Symbol)
+      while i < arr.count
+        if operator == :+
+          to_change += arr[i]
+        elsif operator == :-
+          to_change -= arr[i]
+        elsif operator == :*
+        to_change *= arr[i]
+        elsif operator == :/
+        to_change /= arr[i]        
+        end
+        i += 1
+      end
     end
-    fr_value
+    to_change
   end
-
-  def multiply_els
-    arr = self
-    arr.my_inject(1) { |result, obj| result * obj }
-  end
-  [2, 4, 5].multiply_els
 end
+
+def multiply_els(value = 1)
+  arr = self
+  arr.my_inject(value, :*)
+end
+  [2, 4, 5].multiply_els

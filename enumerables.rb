@@ -6,18 +6,18 @@ module Enumerable
       if arr.respond_to?(:to_a)
         core = arr.to_a
         while i < core.count
-        yield(core[i])
-        i += 1
+          yield(core[i])
+          i += 1
         end
       arr
       else
         while i < arr.count
-        yield(arr[i])
-        i += 1
+          yield(arr[i])
+          i += 1
       end
       end
     else
-        arr.to_enum
+      arr.to_enum
     end
   end
 
@@ -93,12 +93,12 @@ module Enumerable
       elsif arg.respond_to?(:to_i)
         my_each { |obj| to_change = false if obj == arg }
       elsif arg.is_a?(Regexp)
-        my_each { |obj| to_change = false if obj.match(arg)}
+        my_each { |obj| to_change = false if obj.match(arg) }
       elsif arg.respond_to?(:class)
         my_each { |obj| to_change = false if obj.instance_of? arg}
       end
     else
-      my_each { |obj| to_change = false if yield obj}
+      my_each { |obj| to_change = false if yield obj }
     end
     to_change
   end
@@ -109,13 +109,12 @@ module Enumerable
       my_each do |obj|
         to_change.push(yield obj)
       end
-      end
+    end
     to_change
   end
 
   def my_count(arg = nil)
     arr = self
-    i = 0
     total = 0
     if arg.nil?
       total = arr.length
@@ -134,7 +133,6 @@ module Enumerable
     to_change = start_value if start_value != 0
     if start_value.is_a? Symbol
       operator = start_value
-      start_value = 0
     end
     if operator.is_a? Symbol
       while i < arr.count
@@ -151,9 +149,9 @@ module Enumerable
         i += 1
       end
     end
-        if block_given?
-    my_each do |obj|
-     to_change = yield to_change, obj
+    if block_given?
+      my_each do |obj|
+        to_change = yield to_change, obj
     end
   end
   to_change

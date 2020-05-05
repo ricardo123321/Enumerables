@@ -1,4 +1,5 @@
 module Enumerable
+
   def my_each
     i = 0
     arr = self
@@ -8,7 +9,7 @@ module Enumerable
         i += 1
       end
     else
-      arr
+      arr.to_enum
     end
   end
 
@@ -21,7 +22,7 @@ module Enumerable
         i += 1
       end
     else
-      arr
+      arr.to_enum
     end
   end
 
@@ -36,35 +37,44 @@ module Enumerable
       end
       to_change
     else
-      arr
+      arr.to_enum
     end
   end
 
   def my_any?(arg = nil)
-    arr = self
-    i = 0
     to_change = false
-    while i < arr.count
-      if !block_given?
-        to_change = true if include?(true) && arg.nil?
-        to_change = true if arr[i] == arg && arg.respond_to?(:to_i)
-        to_change = true if arr[i].match(arg) && arg.is_a?(Regexp)
-        to_change = true if arr[i].instance_of?(arg) && arg.respond_to?(:class)
-      else
-        to_change = false unless yield(arr[i])
+    arr = self
+    if !block_given?
+      if arg.nil?
+        my_each { |obj| to_change = true if arr.include?(true) || obj != false }
+      elsif arg.respond_to?(:to_i)
+        my_each { |obj| to_change = true if obj == arg }
+      elsif arg.is_a?(Regexp)
+        my_each { |obj| to_change = true if obj.match(arg) }
+      elsif arg.respond_to?(:class)
+        my_each { |obj| to_change = true if obj.instance_of? arg }
       end
-      i += 1
+    else
+      my_each { |obj| to_change = true if yield obj }
     end
     to_change
   end
 
-  def my_all?
-    i = 0
+  def my_all?(arg = nil)
     to_change = true
     arr = self
-    while i < arr.count
-      to_change = false unless yield(arr[i])
-      i += 1
+    if !block_given?
+      if arg.nil?
+        my_each { |obj| to_change = false unless arr.include?(true) || obj != false }
+      elsif arg.respond_to?(:to_i)
+        my_each { |obj| to_change = false unless obj == arg }
+      elsif arg.is_a?(Regexp)
+        my_each { |obj| to_change = false unless obj.match(arg) }
+      elsif arg.respond_to?(:class)
+        my_each { |obj| to_change = false unless obj.instance_of? arg }
+      end
+    else
+      my_each { |obj| to_change = false unless yield obj }
     end
     to_change
   end

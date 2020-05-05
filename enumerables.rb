@@ -109,6 +109,7 @@ module Enumerable
       my_each do |obj|
         to_change.push(yield obj)
       end
+      end
     to_change
   end
 
@@ -150,8 +151,12 @@ module Enumerable
         i += 1
       end
     end
+        if block_given?
     my_each do |obj|
-      to_change = yield to_change, obj
+     to_change = yield to_change, obj
+    end
+  end
+  to_change
   end
 end
 

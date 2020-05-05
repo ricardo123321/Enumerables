@@ -9,12 +9,12 @@ module Enumerable
           yield(core[i])
           i += 1
         end
-      arr
+        arr
       else
         while i < arr.count
           yield(arr[i])
           i += 1
-      end
+        end
       end
     else
       arr.to_enum
@@ -149,7 +149,7 @@ module Enumerable
     end
     if block_given?
       my_each do |obj|
-      to_change = yield to_change, obj
+        to_change = yield to_change, obj
       end
     end
     to_change

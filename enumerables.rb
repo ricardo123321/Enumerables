@@ -1,15 +1,23 @@
 module Enumerable
-
   def my_each
     i = 0
     arr = self
     if block_given?
-      while i < arr.count
+      if arr.respond_to?(:to_a)
+        core = arr.to_a
+        while i < core.count
+        yield(core[i])
+        i += 1
+        end
+      arr
+      else
+        while i < arr.count
         yield(arr[i])
         i += 1
       end
+      end
     else
-      arr.to_enum
+        arr.to_enum
     end
   end
 
@@ -17,10 +25,7 @@ module Enumerable
     i = 0
     arr = self
     if block_given?
-      while i < arr.count
-        yield(arr[i], i)
-        i += 1
-      end
+      arr.my_each { |obj| yield(obj, i += 1) }
     else
       arr.to_enum
     end

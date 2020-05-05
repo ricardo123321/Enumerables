@@ -3,6 +3,16 @@
 
 This is a Ruby project to demonstrate the diferent Enumarables methods using the following methods:
 
+1 - each
+2 - any?
+3 - select
+4 - inject
+5 - each_with_index
+6 - all?
+7 - none?
+8 - count
+9 - map
+
 # Enumerables
 
 This methods takes and input and returns the same result as the original methods they are based on.

@@ -95,7 +95,7 @@ module Enumerable
       elsif arg.is_a?(Regexp)
         my_each { |obj| to_change = false if obj.match(arg) }
       elsif arg.respond_to?(:class)
-        my_each { |obj| to_change = false if obj.instance_of? arg}
+        my_each { |obj| to_change = false if obj.instance_of? arg }
       end
     else
       my_each { |obj| to_change = false if yield obj }
@@ -131,9 +131,7 @@ module Enumerable
     to_change = 1 if operator == :*
     to_change = 1 if operator == :/
     to_change = start_value if start_value != 0
-    if start_value.is_a? Symbol
-      operator = start_value
-    end
+    operator = start_value if start_value.is_a? Symbol
     if operator.is_a? Symbol
       while i < arr.count
         case operator
@@ -151,10 +149,10 @@ module Enumerable
     end
     if block_given?
       my_each do |obj|
-        to_change = yield to_change, obj
+      to_change = yield to_change, obj
+      end
     end
-  end
-  to_change
+    to_change
   end
 end
 

@@ -84,37 +84,42 @@ module Enumerable
     to_change
   end
 
-  def my_none?
-    i = 0
+  def my_none?(arg = nil)
     to_change = true
     arr = self
-    while i < arr.count
-      to_change = false if yield(arr[i])
-      i += 1
+    if !block_given?
+      if arg.nil?
+        my_each { |obj| to_change = false if arr.include?(true) || obj == true }
+      elsif arg.respond_to?(:to_i)
+        my_each { |obj| to_change = false if obj == arg }
+      elsif arg.is_a?(Regexp)
+        my_each { |obj| to_change = false if obj.match(arg)}
+      elsif arg.respond_to?(:class)
+        my_each { |obj| to_change = false if obj.instance_of? arg}
+      end
+    else
+      my_each { |obj| to_change = false if yield obj}
     end
     to_change
   end
 
-  def my_map(the_proc)
-    i = 0
-    to_change = []
-    arr = self
-    arg = the_proc.nil?
-    while i < arr.count
-      to_change << (the_proc.call arr[i]) unless arg == true
-      to_change << yield(arr[i]) if arg == true
-      i += 1
-    end
+  def my_map
+    if block_given?
+      to_change = []
+      my_each do |obj|
+        to_change.push(yield obj)
+      end
     to_change
   end
 
-  def my_count
+  def my_count(arg = nil)
     arr = self
     i = 0
     total = 0
-    while i < arr.count
-      arr.my_each { total += 1 }
-      i += 1
+    if arg.nil?
+      total = arr.length
+    else
+      my_each { |obj| total += 1 if obj == arg }
     end
     total
   end
@@ -126,6 +131,10 @@ module Enumerable
     to_change = 1 if operator == :*
     to_change = 1 if operator == :/
     to_change = start_value if start_value != 0
+    if start_value.is_a? Symbol
+      operator = start_value
+      start_value = 0
+    end
     if operator.is_a? Symbol
       while i < arr.count
         case operator
@@ -141,7 +150,8 @@ module Enumerable
         i += 1
       end
     end
-    to_change
+    my_each do |obj|
+      to_change = yield to_change, obj
   end
 end
 

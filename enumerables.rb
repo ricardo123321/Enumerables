@@ -48,9 +48,10 @@ module Enumerable
 
   def my_any?(arg = nil)
     to_change = false
+    arr = self
     if !block_given?
       if arg.nil?
-        my_each { |obj| to_change = true if self.include?(true) || obj != false }
+        my_each { |obj| to_change = true if arr.include?(true) || obj != false }
       elsif arg.respond_to?(:to_i)
         my_each { |obj| to_change = true if obj == arg }
       elsif arg.is_a?(Regexp)

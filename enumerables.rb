@@ -48,10 +48,9 @@ module Enumerable
 
   def my_any?(arg = nil)
     to_change = false
-    arr = self
     if !block_given?
       if arg.nil?
-        my_each { |obj| to_change = true unless obj == false   || obj.nil?}
+        my_each { |obj| to_change = true unless obj == false || obj.nil? }
       elsif arg.respond_to?(:to_i)
         my_each { |obj| to_change = true if obj == arg }
       elsif arg.is_a?(Regexp)
@@ -105,14 +104,11 @@ module Enumerable
 
   def my_map
     arr = self
-    if block_given?
+    return arr.to_enum unless block_given?
       to_change = []
       my_each do |obj|
         to_change.push(yield obj)
       end
-    else
-      return arr.to_enum
-    end
     to_change
   end
 
@@ -122,10 +118,10 @@ module Enumerable
     if arg.nil?
       if block_given?
         my_each do |item|
-          total +=1 if yield(item)
+          total += 1 if yield(item)
         end
       else
-      total = arr.length
+        total = arr.length
       end
     else
       my_each { |obj| total += 1 if obj == arg }
@@ -141,15 +137,15 @@ module Enumerable
     to_change = start_value if start_value != 0
     operator = start_value if start_value.is_a? Symbol
     if operator.is_a? Symbol
-        case operator
+      case operator
         when :+
-          arr.each { |obj| to_change += obj}
+          arr.each { |obj| to_change += obj }
         when :-
-          arr.each { |obj| to_change -= obj}
+          arr.each { |obj| to_change -= obj }
         when :*
-          arr.each { |obj| to_change *= obj}
+          arr.each { |obj| to_change *= obj }
         when :/
-          arr.each { |obj| to_change /= obj}
+          arr.each { |obj| to_change /= obj }
         end
     end
     if block_given?

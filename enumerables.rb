@@ -22,7 +22,7 @@ module Enumerable
   end
 
   def my_each_with_index
-    i = 0
+    i = -1
     arr = self
     if block_given?
       arr.my_each { |obj| yield(obj, i += 1) }
@@ -48,9 +48,10 @@ module Enumerable
 
   def my_any?(arg = nil)
     to_change = false
+    arr = self
     if !block_given?
       if arg.nil?
-        my_each { |obj| to_change = true if self.include?(true) || obj != false }
+        my_each { |obj| to_change = true unless obj == false   || obj.nil?}
       elsif arg.respond_to?(:to_i)
         my_each { |obj| to_change = true if obj == arg }
       elsif arg.is_a?(Regexp)
@@ -103,11 +104,14 @@ module Enumerable
   end
 
   def my_map
+    arr = self
     if block_given?
       to_change = []
       my_each do |obj|
         to_change.push(yield obj)
       end
+    else
+      arr.to_enum
     end
     to_change
   end
@@ -116,7 +120,13 @@ module Enumerable
     arr = self
     total = 0
     if arg.nil?
+      if block_given?
+        my_each do |item|
+          total +=1 if yield(item)
+        end
+      else
       total = arr.length
+      end
     else
       my_each { |obj| total += 1 if obj == arg }
     end
@@ -124,7 +134,6 @@ module Enumerable
   end
 
   def my_inject(start_value = 0, operator = nil)
-    i = 0
     arr = self
     to_change = 0
     to_change = 1 if operator == :*
@@ -132,19 +141,16 @@ module Enumerable
     to_change = start_value if start_value != 0
     operator = start_value if start_value.is_a? Symbol
     if operator.is_a? Symbol
-      while i < arr.count
         case operator
         when :+
-          to_change += arr[i]
+          arr.each { |obj| to_change += obj}
         when :-
-          to_change -= arr[i]
+          arr.each { |obj| to_change -= obj}
         when :*
-          to_change *= arr[i]
+          arr.each { |obj| to_change *= obj}
         when :/
-          to_change /= arr[i]
+          arr.each { |obj| to_change /= obj}
         end
-        i += 1
-      end
     end
     if block_given?
       my_each do |obj|

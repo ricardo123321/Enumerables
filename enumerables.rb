@@ -105,10 +105,11 @@ module Enumerable
   def my_map
     arr = self
     return arr.to_enum unless block_given?
-      to_change = []
-      my_each do |obj|
-        to_change.push(yield obj)
-      end
+
+    to_change = []
+    my_each do |obj|
+      to_change.push(yield obj)
+    end
     to_change
   end
 
@@ -138,15 +139,15 @@ module Enumerable
     operator = start_value if start_value.is_a? Symbol
     if operator.is_a? Symbol
       case operator
-        when :+
-          arr.each { |obj| to_change += obj }
-        when :-
-          arr.each { |obj| to_change -= obj }
-        when :*
-          arr.each { |obj| to_change *= obj }
-        when :/
-          arr.each { |obj| to_change /= obj }
-        end
+      when :+
+        arr.each { |obj| to_change += obj }
+      when :-
+        arr.each { |obj| to_change -= obj }
+      when :*
+        arr.each { |obj| to_change *= obj }
+      when :/
+        arr.each { |obj| to_change /= obj }
+      end
     end
     if block_given?
       my_each do |obj|

@@ -111,7 +111,7 @@ module Enumerable
         to_change.push(yield obj)
       end
     else
-      arr.to_enum
+      return arr.to_enum
     end
     to_change
   end

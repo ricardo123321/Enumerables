@@ -132,21 +132,22 @@ module Enumerable
 
   def my_inject(start_value = 0, operator = nil)
     arr = self
-    to_change = 0
+    to_change = ""
+    operator = start_value if start_value.is_a? Symbol
+    start_value = 0 if start_value.is_a? Symbol
     to_change = 1 if operator == :*
     to_change = 1 if operator == :/
     to_change = start_value if start_value != 0
-    operator = start_value if start_value.is_a? Symbol
     if operator.is_a? Symbol
       case operator
       when :+
-        arr.each { |obj| to_change += obj }
+        arr.my_each { |obj| to_change += obj }
       when :-
-        arr.each { |obj| to_change -= obj }
+        arr.my_each { |obj| to_change -= obj }
       when :*
-        arr.each { |obj| to_change *= obj }
+        arr.my_each { |obj| to_change *= obj }
       when :/
-        arr.each { |obj| to_change /= obj }
+        arr.my_each { |obj| to_change /= obj }
       end
     end
     if block_given?
@@ -158,8 +159,7 @@ module Enumerable
   end
 end
 
-def multiply_els(value = 1)
-  arr = self
-  arr.my_inject(value, :*)
+def multiply_els(array)
+  array.my_inject(:*)
 end
-[2, 4, 5].multiply_els
+p multiply_els([1, 2, 3])

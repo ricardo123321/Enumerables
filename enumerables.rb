@@ -136,7 +136,7 @@ module Enumerable
 
   def my_inject(start_value = 0, operator = nil)
     arr = self
-    to_change = ""
+    to_change = ''
     operator = start_value if start_value.is_a? Symbol
     start_value = 0 if start_value.is_a? Symbol
     to_change = 1 if operator == :*

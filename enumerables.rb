@@ -1,3 +1,7 @@
+# rubocop:disable Metrics/CyclomaticComplexity
+# rubocop:disable Metrics/PerceivedComplexity
+# rubocop:disable Metrics/ModuleLength
+# rubocop:disable Metrics/MethodLength
 module Enumerable
   def my_each
     i = 0
@@ -163,3 +167,7 @@ def multiply_els(array)
   array.my_inject(:*)
 end
 p multiply_els([1, 2, 3])
+# rubocop:enable Metrics/CyclomaticComplexity
+# rubocop:enable Metrics/PerceivedComplexity
+# rubocop:enable Metrics/ModuleLength
+# rubocop:enable Metrics/MethodLength

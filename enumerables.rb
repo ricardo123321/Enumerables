@@ -134,32 +134,38 @@ module Enumerable
     total
   end
 
-  def my_inject(start_value = 0, operator = nil)
-    arr = self
-    to_change = ''
-    operator = start_value if start_value.is_a? Symbol
-    start_value = 0 if start_value.is_a? Symbol
-    to_change = 1 if operator == :*
-    to_change = 1 if operator == :/
-    to_change = start_value if start_value != 0
-    if operator.is_a? Symbol
-      case operator
+  def my_inject(num = 0, oper = nil)
+    to_change = dup if respond_to?(:to_a)
+    to_change = to_a.dup if is_a?(Range)
+
+    if num.is_a?(Symbol)
+      oper = num
+      num = 0
+    end
+
+    if oper.is_a?(Symbol)
+      case oper
       when :+
-        arr.my_each { |obj| to_change += obj }
+        num = to_change.my_inject(memo) { |acum, obj| acum + obj }
       when :-
-        arr.my_each { |obj| to_change -= obj }
+        num = to_change.my_inject(memo) { |acum, obj| acum - obj }
       when :*
-        arr.my_each { |obj| to_change *= obj }
+        num = to_change.my_inject(memo) { |acum, obj| acum * obj }
       when :/
-        arr.my_each { |obj| to_change /= obj }
+        num = to_change.my_inject(memo) { |acum, obj| acum / obj }
+      else
+        puts 'Invalid operator'
+      end
+    else
+      if num == 0
+        num = to_change[0]
+        to_change.shift
+      end
+      to_change.my_each do |obj|
+        num = yield num, obj
       end
     end
-    if block_given?
-      my_each do |obj|
-        to_change = yield to_change, obj
-      end
-    end
-    to_change
+    num
   end
 end
 

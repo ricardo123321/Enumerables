@@ -146,13 +146,13 @@ module Enumerable
     if oper.is_a?(Symbol)
       case oper
       when :+
-        num = to_change.my_inject(memo) { |acum, obj| acum + obj }
+        num = to_change.my_inject(num) { |acum, obj| acum + obj }
       when :-
-        num = to_change.my_inject(memo) { |acum, obj| acum - obj }
+        num = to_change.my_inject(num) { |acum, obj| acum - obj }
       when :*
-        num = to_change.my_inject(memo) { |acum, obj| acum * obj }
+        num = to_change.my_inject(num) { |acum, obj| acum * obj }
       when :/
-        num = to_change.my_inject(memo) { |acum, obj| acum / obj }
+        num = to_change.my_inject(num) { |acum, obj| acum / obj }
       else
         puts 'Invalid operator'
       end

@@ -157,7 +157,7 @@ module Enumerable
         puts 'Invalid operator'
       end
     else
-      if num == 0
+      if num.zero?
         num = to_change[0]
         to_change.shift
       end

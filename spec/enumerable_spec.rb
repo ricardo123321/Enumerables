@@ -33,5 +33,17 @@ describe Enumerable do
   end
 
   describe '#my_select' do
-     
+    let(:arr_num) { [1, 2, 3, 4, 5] }
+    let(:arr_str) { %w[a b c] }
+    let(:vowels) { %w[a e i o u] }
+    it 'Select the even numbers' do
+      expect(arr_num.my_select { |num| (num % 2).zero? }).to include(2, 4)
+    end
+    it 'Select the multiples of three' do
+      expect(arr_str.my_select { |str| vowels.include? str }).to include("a")
+    end
+    it 'Return enumerator when no block is given' do
+      expect(arr_num.my_select).to be_an Enumerator
+    end
+  end
 end

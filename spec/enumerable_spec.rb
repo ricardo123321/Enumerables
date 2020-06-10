@@ -1,7 +1,6 @@
 require_relative '../enumerables.rb'
 
 describe Enumerable do
-
   describe '#my_each' do
     let(:arr_num) { [1, 2, 3, 4] }
     let(:arr_str) { %w[a b c] }
@@ -22,10 +21,10 @@ describe Enumerable do
     let(:arr_str) { %w[a b c] }
     let(:vowels) { %w[a e i o u] }
     it 'Print all the numbers with index bigger than 2' do
-      expect { arr_num.my_each_with_index { |n,index| print [n,index] if n > 2 }}.to output('[3, 2][4, 3]').to_stdout
-    end 
+      expect { arr_num.my_each_with_index { |n, index| print [n,index] if n > 2 } }.to output('[3, 2][4, 3]').to_stdout
+    end
     it 'print works with its index that have vowels' do
-      expect { arr_str.my_each_with_index { |n,index| print [n,index] if vowels.include? n }}.to output('["a", 0]').to_stdout
+      expect { arr_str.my_each_with_index { |n, index| print [n,index] if vowels.include? n } }.to output('["a", 0]').to_stdout
     end
     it 'Return enumerator when no block is given' do
       expect(arr_num.my_each).to be_an Enumerator
@@ -40,7 +39,7 @@ describe Enumerable do
       expect(arr_num.my_select { |num| (num % 2).zero? }).to include(2, 4)
     end
     it 'Select the multiples of three' do
-      expect(arr_str.my_select { |str| vowels.include? str }).to include("a")
+      expect(arr_str.my_select { |str| vowels.include? str }).to include('a')
     end
     it 'Return enumerator when no block is given' do
       expect(arr_num.my_select).to be_an Enumerator
@@ -50,10 +49,10 @@ describe Enumerable do
   describe '#my_all?' do
     let(:false_num) { [29, 32, 54, 30, 17] }
     let(:true_num) { [2, 4, 6, 12, 34] }
-    let(:true_str)  { %w[kkkr rnunrr  ppolkf mmnd] }
+    let(:true_str)  { %w[kkkr rnunrr ppolkf mmnd] }
     let(:vowels) { %w[a e i o u] }
     it 'every number is bigger than 20?' do
-    expect(false_num.my_all?{ |n|  n > 20 }).to be(false)
+      expect(false_num.my_all?{ |n| n > 20 }).to be(false)
     end
     it 'every number is even?' do
       expect(false_num.my_all?{ |n|  (n%2).zero? }).to be(false)

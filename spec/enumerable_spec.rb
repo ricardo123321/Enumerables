@@ -58,7 +58,7 @@ describe Enumerable do
       expect(false_num.my_all? { |n| (n % 2).zero? }).to be(false)
     end
     it 'Select strings bigger than 3 letters' do
-        expect(true_str.my_all? { |str| str if str.length > 3 }).to be(true)
+      expect(true_str.my_all? { |str| str if str.length > 3 }).to be(true)
     end
   end
 
@@ -96,7 +96,7 @@ describe Enumerable do
     let(:arr_num) { [1, 2, 3, 4, 5] }
     let(:arr_str) { %w[dog door road blade] }
     let(:arr_arg) { [2, nil, false] }
-    it "returns true if the condition holds for any elements" do
+    it 'returns true if the condition holds for any elements' do
       expect(arr_num.my_any?(&:even?)).to eql(true)
     end
     it 'returns true if condition does not hold for any elements' do

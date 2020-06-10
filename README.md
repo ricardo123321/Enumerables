@@ -28,7 +28,7 @@ Positive and negative scenarios for the tests were taken into account.
 # Run tests
 To start testing from the console, call: rspec spec\enumerable_spec.rb
 
-![Enumerable Tests](“enumerable_tests.png”)
+![Enumerable Tests](./enumerable_tests.png)
 
 
 ## Built With

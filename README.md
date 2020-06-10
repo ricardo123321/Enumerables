@@ -24,7 +24,8 @@ This diferent methods where created with the intend to have a better understandi
 # Testing with Rspec
 
 In the Ruby Code Testing - Numerous Methods project, we've added specifications for each of the many methods we've created before.
-Positive and negative scenarios for the tests were taken into account.
+Positive and negative scenarios for the tests were taken into account, by describing different escenarios in wich we already know the answer we where able to determinate the efectiveness of our code by trying to get the same results with our code that the ones we where expected.
+
 # Run tests
 To start testing from the console, call: rspec spec\enumerable_spec.rb
 
